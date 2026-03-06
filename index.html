@@ -20,8 +20,8 @@
         <button id="playagainbutton" hidden onclick="resetgame()">Play Again</button>
         <p>Wins: <span id="winscount">0</span></p>
         <p>Losses: <span id="lossescount">0</span></p>
-        <audio id="winaudio" src="car.m4a"></audio>
-        <audio id="lossaudio" src="goat.m4a"></audio>
+        <audio id="winaudio" src="https://github.com/MayarHekal/Flavorless/raw/refs/heads/main/car.m4a"></audio>
+        <audio id="lossaudio" src="https://github.com/MayarHekal/Flavorless/raw/refs/heads/main/goat.m4a"></audio>
         <script>
             var wins = 0;
             var losses = 0;
@@ -30,7 +30,7 @@
             var revealeddoor = 0;
             var thefinaldoor = 0;
             function changeimage(event) {
-                event.target.src = "choosendoor.png";
+                event.target.src = "https://github.com/MayarHekal/Flavorless/blob/main/choosendoor.png?raw=true";
                 document.getElementById("door1").removeEventListener("click", changeimage);
                 document.getElementById("door2").removeEventListener("click", changeimage);
                 document.getElementById("door3").removeEventListener("click", changeimage);
@@ -72,7 +72,7 @@
                         revealeddoor = "door3"
                     }
                 }
-                document.getElementById(revealeddoor).src = "thegoat.png";
+                document.getElementById(revealeddoor).src = "https://github.com/MayarHekal/Flavorless/blob/main/thegoat.png?raw=true";
                 document.getElementById("revealbutton").hidden = true;
                 document.getElementById("staybutton").hidden = false;
                 document.getElementById("switchbutton").hidden = false;
@@ -95,7 +95,7 @@
                 document.getElementById("switchbutton").hidden = true;
                 document.getElementById("hosttext").hidden = true;
                 if (thefinaldoor == "door" + thedoorwiththecar) {
-                    document.getElementById(thefinaldoor).src = "thecar.png";
+                    document.getElementById(thefinaldoor).src = "https://github.com/MayarHekal/Flavorless/blob/main/thecar.png?raw=true";
                     setTimeout(function() {
                         alert("Car. Ro7 el3ab F1 yalla ;)");
                     }, 2000);
@@ -103,7 +103,7 @@
                     wins = wins + 1;
                     document.getElementById("winscount").innerHTML = wins;
                 } else {
-                    document.getElementById(thefinaldoor).src = "thegoat.png";
+                    document.getElementById(thefinaldoor).src = "https://github.com/MayarHekal/Flavorless/blob/main/thegoat.png?raw=true";
                     setTimeout(function() {
                         alert("Goat. Edba7o fel Eid :(");
                     }, 2000);
