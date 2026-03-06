@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>The Monty Hall V2.0</h1>
+        <p>It's time for you to try it yourself. Three doors. One car. Two goats (<sup>>_<</sup>). <a href="https://mayarhekal.github.io/Boba-project/"><strong>Click here to know the rules.</strong></a></p>
+        <p>Find the <strong>car</strong>!</p>
+        <table>
+            <tr>
+                <td><button><img id="door1" src="https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg" width="200"></button></td>
+                <td><button><img id="door2" src="https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg" width="200"></button></td>
+                <td><button><img id="door3" src="https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg" width="200"></button></td>
+            </tr>
+        </table>
+        <p id="hosttext"></p>
+        <button id="revealbutton" type="button" hidden onclick="thedoorrevealed()">Reveal door !</button>
+        <button id="staybutton" type="button" hidden onclick="theplayerschoice('stay')">Stay</button>
+        <button id="switchbutton" type="button" hidden onclick="theplayerschoice('switch')">Switch</button>
+        <button id="playagainbutton" hidden onclick="resetgame()">Play Again</button>
+        <p>Wins: <span id="winscount">0</span></p>
+        <p>Losses: <span id="lossescount">0</span></p>
+        <audio id="winaudio" src=".car.m4a"></audio>
+        <audio id="lossaudio" src=".goat.m4a"></audio>
+        <script>
+            var wins = 0;
+            var losses = 0;
+            var thedoorwiththecar = Math.floor(Math.random() * 3) + 1;
+            var doorpickedbyplayer = 0;
+            var revealeddoor = 0;
+            var thefinaldoor = 0;
+            function changeimage(event) {
+                event.target.src = ".choosendoor.png";
+                document.getElementById("door1").removeEventListener("click", changeimage);
+                document.getElementById("door2").removeEventListener("click", changeimage);
+                document.getElementById("door3").removeEventListener("click", changeimage);
+                document.getElementById("hosttext").innerHTML = "Now Monty must reveal a door!";
+                document.getElementById("revealbutton").hidden = false;
+                doorpickedbyplayer = event.target.id;
+            }
+            document.getElementById("door1").addEventListener("click", changeimage);
+            document.getElementById("door2").addEventListener("click", changeimage);
+            document.getElementById("door3").addEventListener("click", changeimage);
+
+            function thedoorrevealed(event) {
+                if (doorpickedbyplayer == "door" + thedoorwiththecar) {
+                    if (doorpickedbyplayer == "door1") {
+                        if (Math.random() < 0.5) {
+                            revealeddoor = "door2";
+                        } else {
+                            revealeddoor = "door3";
+                        }
+                    } else if (doorpickedbyplayer == "door2") {
+                        if (Math.random() < 0.5) {
+                            revealeddoor = "door1";
+                        } else {
+                            revealeddoor = "door3";
+                        }
+                    } else {
+                        if (Math.random() < 0.5) {
+                            revealeddoor = "door1";
+                        } else {
+                            revealeddoor = "door2";
+                        }
+                    }
+                } else {
+                    if (doorpickedbyplayer != "door1" && thedoorwiththecar != 1) {
+                        revealeddoor = "door1"
+                    } else if (doorpickedbyplayer != "door2" && thedoorwiththecar != 2) {
+                        revealeddoor = "door2"
+                    } else {
+                        revealeddoor = "door3"
+                    }
+                }
+                document.getElementById(revealeddoor).src = ".thegoat.png";
+                document.getElementById("revealbutton").hidden = true;
+                document.getElementById("staybutton").hidden = false;
+                document.getElementById("switchbutton").hidden = false;
+                document.getElementById("hosttext").innerHTML = "Will you stay or switch?";
+            }
+
+            function theplayerschoice(event) {
+                if (event == "stay") {
+                    thefinaldoor = doorpickedbyplayer;
+                } else {
+                    if (doorpickedbyplayer != "door1" && revealeddoor != "door1") {
+                        thefinaldoor = "door1";
+                    } else if (doorpickedbyplayer != "door2" && revealeddoor != "door2") {
+                        thefinaldoor = "door2";
+                    } else {
+                        thefinaldoor = "door3";
+                    }
+                }
+                document.getElementById("staybutton").hidden = true;
+                document.getElementById("switchbutton").hidden = true;
+                document.getElementById("hosttext").hidden = true;
+                if (thefinaldoor == "door" + thedoorwiththecar) {
+                    document.getElementById(thefinaldoor).src = ".thecar.png";
+                    setTimeout(function() {
+                        alert("Car. Ro7 el3ab F1 yalla ;)");
+                    }, 2000);
+                    document.getElementById("winaudio").play();
+                    wins = wins + 1;
+                    document.getElementById("winscount").innerHTML = wins;
+                } else {
+                    document.getElementById(thefinaldoor).src = ".thegoat.png";
+                    setTimeout(function() {
+                        alert("Goat. Edba7o fel Eid :(");
+                    }, 2000);
+                    document.getElementById("lossaudio").play();
+                    losses = losses + 1;
+                    document.getElementById("lossescount").innerHTML = losses;
+                }
+                document.getElementById("playagainbutton").hidden = false;
+            }
+
+            function resetgame() {
+                document.getElementById("door1").src = "https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg";
+                document.getElementById("door2").src = "https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg";
+                document.getElementById("door3").src = "https://img.freepik.com/premium-vector/red-door-cartoon-illustration-vector_123847-3270.jpg";
+                document.getElementById("hosttext").innerHTML = "";
+                document.getElementById("playagainbutton").hidden = true;
+                document.getElementById("hosttext").hidden = false;
+                thedoorwiththecar = Math.floor(Math.random() * 3) + 1;
+                doorpickedbyplayer = 0;
+                revealeddoor = 0;
+                thefinaldoor = 0;
+                document.getElementById("door1").addEventListener("click", changeimage);
+                document.getElementById("door2").addEventListener("click", changeimage);
+                document.getElementById("door3").addEventListener("click", changeimage);
+            }
+        </script>
+    </body>
+</html>
